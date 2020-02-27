@@ -1,12 +1,18 @@
 package com.rmaciel.lifegoals.models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +41,18 @@ public class Goal {
     private String whyToDevelop;
     private String howToDevelop;
 
+    @OneToMany(mappedBy = "goal", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(this.tasks);
+    }
+
+    public void add(Task... tasks) {
+        if (this.tasks == null)
+            this.tasks = new ArrayList<>();
+        Stream.of(tasks).forEach(this.tasks::add);
+    }
 
     public Long getId() {
         return id;
