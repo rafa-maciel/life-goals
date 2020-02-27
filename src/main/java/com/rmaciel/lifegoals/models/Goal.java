@@ -29,8 +29,10 @@ public class Goal {
     @Temporal(TemporalType.DATE)
     private Date createdOn = Calendar.getInstance().getTime();
 
+    @Temporal(TemporalType.DATE)
+    private Date deadline;
+
     private String whyToDevelop;
-    private String whenToDevelop;
     private String howToDevelop;
 
 
@@ -70,14 +72,6 @@ public class Goal {
         this.whyToDevelop = whyToDevelop;
     }
 
-    public String getWhenToDevelop() {
-        return this.whenToDevelop;
-    }
-
-    public void setWhenToDevelop(String whenToDevelop) {
-        this.whenToDevelop = whenToDevelop;
-    }
-
     public String getHowToDevelop() {
         return this.howToDevelop;
     }
@@ -86,6 +80,9 @@ public class Goal {
         this.howToDevelop = howToDevelop;
     }
     
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
 
     @Override
     public boolean equals(Object obj) {
