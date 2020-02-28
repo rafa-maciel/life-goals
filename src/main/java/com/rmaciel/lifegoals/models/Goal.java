@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -47,7 +48,7 @@ public class Goal {
     @OneToMany(mappedBy = "goal", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonBackReference
     public List<Task> getTasks() {
         return Collections.unmodifiableList(this.tasks);
     }

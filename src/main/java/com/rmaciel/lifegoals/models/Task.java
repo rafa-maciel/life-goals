@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tasks")
@@ -49,7 +50,7 @@ public class Task {
         return this.id;
     }
     
-    @JsonBackReference
+    @JsonManagedReference
     public Goal getGoal() {
         return this.goal;
     }
