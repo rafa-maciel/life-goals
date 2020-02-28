@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -40,7 +42,40 @@ public class Task {
     private Date deadline;
 
     @Enumerated(EnumType.STRING)
-    private ActivityStatus status;
+    private ActivityStatus status = ActivityStatus.WAITING;
 
+
+    public Long getId() {
+        return this.id;
+    }
     
+    @JsonBackReference
+    public Goal getGoal() {
+        return this.goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Date getCreatedOn() {
+        return this.createdOn;
+    }
+
+    public Date getDeadline() {
+        return this.deadline;
+    }
+
+    public ActivityStatus getStatus() {
+        return this.status;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "goals")
@@ -41,9 +44,10 @@ public class Goal {
     private String whyToDevelop;
     private String howToDevelop;
 
-    @OneToMany(mappedBy = "goal", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private List<Task> tasks;
+    @OneToMany(mappedBy = "goal", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
 
+    @JsonManagedReference
     public List<Task> getTasks() {
         return Collections.unmodifiableList(this.tasks);
     }
@@ -100,6 +104,10 @@ public class Goal {
     
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public Date getDeadline() {
+        return deadline;
     }
 
     @Override
